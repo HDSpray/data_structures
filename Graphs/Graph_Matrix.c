@@ -261,30 +261,20 @@ int HamiltonR(Graph g, Vertex v, Vertex w, int d)
 
 // return 1 means has euler path
 // return 0 mean do not has euler path
-// Graph has Euleer path iff each node in the graph has even degree
-// iff src and dest are odd degree, and the rest of the node are even degree
+// Graph has Euleer path iff it is connected and exactly two vertices have odd degree
 int hasEulerPath(Graph g, Vertex src, Vertex dest)
 {
-    for(Vertex t = 0; t < g->nV; t++){
-        if(degree(g, t) == 1){
-            if(degree(g,src)%2 == degree(g,dest)%2 && (t == src || t == dest))
-                continue;
-            else
-                return 0;
+    int t = degree(g, src) + degree(g, dest);
+    if (t%2 != 0) return 0;
+    Vertex x;
+    for (x = 0; x < g->nV; x++) {
+        if (x != src && x != dest){
+            if((degree(g,x) % 2) != 0) return 0;
+            return 0;
         }
     }
     return 1;
 }
-// int t = defree(g, src) + degree(g, dest)
-// if (( t % 2) ! = 0) return 0;
-// Vertex x;
-// for (x = 0; x < nV(g); x++) {
-//     if (x != v && x != w){
-//         if((degree(g,x) % 2) != 0) return 0;
-//     }
-//     return 1;
-// }
-
 
 // return the degree of the vertex
 int degree(Graph g, Vertex v)
